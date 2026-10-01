@@ -246,6 +246,176 @@
 			content: '';
 			pointer-events: none;
 		}
+		.coffee-decor {
+			position: absolute;
+			z-index: 0;
+			inset: 0;
+			overflow: hidden;
+			pointer-events: none;
+		}
+		.coffee-decor__item {
+			position: absolute;
+			display: block;
+			opacity: .24;
+			pointer-events: none;
+			transform-style: preserve-3d;
+			--coffee-tilt: 0deg;
+			--coffee-depth: 0deg;
+			--coffee-scale: 1;
+			animation: coffee-float 24s ease-in-out infinite;
+		}
+		.coffee-bean {
+			width: 22px;
+			height: 34px;
+			border-radius: 52% 48% 49% 51%;
+			background: linear-gradient(145deg, color-mix(in srgb, var(--product-accent) 68%, #fff 32%), color-mix(in srgb, var(--product-deep) 88%, #000 12%));
+			box-shadow: inset 2px 1px 3px rgb(255 255 255 / 20%), inset -3px -4px 6px rgb(0 0 0 / 28%), 0 8px 15px rgb(0 0 0 / 14%);
+		}
+		.coffee-bean::after {
+			position: absolute;
+			inset: 5px 10px;
+			border-left: 1px solid rgb(243 236 220 / 48%);
+			border-radius: 50%;
+			content: '';
+		}
+		.coffee-cup {
+			width: 64px;
+			height: 46px;
+			border-radius: 5px 5px 20px 20px;
+			background: linear-gradient(115deg, rgb(243 236 220 / 72%), color-mix(in srgb, var(--product-accent) 48%, var(--product-deep)));
+			box-shadow: inset 4px 1px 7px rgb(255 255 255 / 24%), inset -5px -4px 8px rgb(0 0 0 / 20%), 0 12px 20px rgb(0 0 0 / 17%);
+		}
+		.coffee-cup::before {
+			position: absolute;
+			top: 8px;
+			right: -14px;
+			width: 19px;
+			height: 23px;
+			border: 4px solid color-mix(in srgb, var(--product-accent) 60%, #f3ecdc 40%);
+			border-left: 0;
+			border-radius: 0 60% 60% 0;
+			content: '';
+		}
+		.coffee-cup::after {
+			position: absolute;
+			top: -4px;
+			left: 0;
+			width: 100%;
+			height: 12px;
+			border-radius: 50%;
+			background: linear-gradient(90deg, color-mix(in srgb, var(--product-deep) 80%, #342319), color-mix(in srgb, var(--product-light) 45%, #342319));
+			box-shadow: inset 0 2px 3px rgb(255 255 255 / 15%);
+			content: '';
+		}
+		.coffee-steam {
+			width: 9px;
+			height: 23px;
+			border-left: 1px solid color-mix(in srgb, var(--product-accent) 75%, transparent);
+			border-radius: 50%;
+			filter: blur(.3px);
+		}
+		.coffee-leaf {
+			width: 25px;
+			height: 48px;
+			border-radius: 2px 100% 2px 100%;
+			background: linear-gradient(135deg, color-mix(in srgb, var(--product-accent) 72%, #edf0d5), color-mix(in srgb, var(--product-mid) 88%, #111));
+			box-shadow: inset 2px 1px 4px rgb(255 255 255 / 18%), 0 8px 14px rgb(0 0 0 / 15%);
+		}
+		.coffee-leaf::after {
+			position: absolute;
+			top: 12%;
+			left: 49%;
+			width: 1px;
+			height: 76%;
+			background: rgb(243 236 220 / 50%);
+			content: '';
+		}
+		.coffee-spoon {
+			width: 4px;
+			height: 65px;
+			border-radius: 4px;
+			background: linear-gradient(90deg, color-mix(in srgb, var(--product-accent) 28%, #777), color-mix(in srgb, var(--product-accent) 80%, #eee), color-mix(in srgb, var(--product-mid) 40%, #777));
+			box-shadow: 0 6px 12px rgb(0 0 0 / 20%);
+		}
+		.coffee-spoon::before {
+			position: absolute;
+			top: -4px;
+			left: -6px;
+			width: 16px;
+			height: 23px;
+			border-radius: 50%;
+			background: linear-gradient(115deg, color-mix(in srgb, var(--product-accent) 32%, #777), color-mix(in srgb, var(--product-accent) 82%, #eee), color-mix(in srgb, var(--product-mid) 40%, #777));
+			content: '';
+		}
+		.coffee-maker {
+			width: 58px;
+			height: 82px;
+			filter: drop-shadow(0 9px 12px rgb(0 0 0 / 18%));
+		}
+		.coffee-maker::before {
+			position: absolute;
+			top: 27%;
+			right: 9%;
+			bottom: 0;
+			left: 9%;
+			clip-path: polygon(5% 0, 95% 0, 79% 100%, 21% 100%);
+			border-radius: 4px 4px 12px 12px;
+			background: linear-gradient(110deg, color-mix(in srgb, var(--product-accent) 65%, #eee), color-mix(in srgb, var(--product-mid) 84%, #111) 58%, color-mix(in srgb, var(--product-accent) 38%, #555));
+			content: '';
+		}
+		.coffee-maker::after {
+			position: absolute;
+			top: 18%;
+			left: 25%;
+			width: 50%;
+			height: 18%;
+			border-radius: 4px 4px 8px 8px;
+			background: linear-gradient(100deg, color-mix(in srgb, var(--product-accent) 72%, #eee), color-mix(in srgb, var(--product-mid) 76%, #222));
+			box-shadow: inset 0 2px 3px rgb(255 255 255 / 20%);
+			content: '';
+		}
+		.coffee-maker__knob, .coffee-maker__handle, .coffee-maker__spout { position: absolute; display: block; }
+		.coffee-maker__knob {
+			top: 7%;
+			left: 43%;
+			width: 14%;
+			height: 9%;
+			border-radius: 50%;
+			background: color-mix(in srgb, var(--product-accent) 72%, #eee);
+		}
+		.coffee-maker__handle {
+			top: 37%;
+			right: 0;
+			width: 15px;
+			height: 30px;
+			border: 4px solid color-mix(in srgb, var(--product-mid) 75%, #111);
+			border-left: 0;
+			border-radius: 0 60% 60% 0;
+		}
+		.coffee-maker__spout {
+			top: 31%;
+			left: 3%;
+			width: 13px;
+			height: 9px;
+			clip-path: polygon(0 0, 100% 25%, 100% 75%, 0 100%);
+			background: color-mix(in srgb, var(--product-accent) 56%, #777);
+		}
+		.product-blue .coffee-cup { top: 5%; left: 8%; --coffee-tilt: -8deg; --coffee-depth: -12deg; animation-delay: -7s; }
+		.product-blue .coffee-steam { top: calc(5% - 31px); left: calc(8% + 27px); animation-delay: -3s; }
+		.product-blue .coffee-bean--one { top: 8%; left: 2%; --coffee-tilt: -28deg; animation-delay: -11s; }
+		.product-blue .coffee-bean--two { top: 14%; left: 4.5%; --coffee-tilt: 24deg; --coffee-scale: .72; animation-delay: -15s; }
+		.product-green .coffee-leaf--one { bottom: 7%; left: 2%; --coffee-tilt: -42deg; animation-delay: -6s; }
+		.product-green .coffee-leaf--two { bottom: 9%; left: 5.5%; --coffee-tilt: 34deg; --coffee-scale: .82; animation-delay: -12s; }
+		.product-green .coffee-leaf--three { bottom: 5%; left: 8%; --coffee-tilt: -18deg; --coffee-scale: .62; animation-delay: -18s; }
+		.product-green .coffee-spoon { bottom: 7%; left: 13%; --coffee-tilt: 28deg; --coffee-depth: 8deg; animation-delay: -9s; }
+		.product-yellow .coffee-maker { top: 5%; left: 3%; --coffee-tilt: -7deg; --coffee-depth: -10deg; animation-delay: -8s; }
+		.product-yellow .coffee-bean--one { top: 11%; left: 10%; --coffee-tilt: 32deg; animation-delay: -13s; }
+		.product-yellow .coffee-bean--two { top: 16%; left: 5%; --coffee-tilt: -18deg; --coffee-scale: .68; animation-delay: -5s; }
+		.product-yellow .coffee-leaf--one { bottom: 6%; left: 2%; --coffee-tilt: -38deg; --coffee-scale: .72; animation-delay: -17s; }
+		@keyframes coffee-float {
+			0%, 100% { transform: translate3d(0, 0, 0) rotate(var(--coffee-tilt)) rotateY(var(--coffee-depth)) scale(var(--coffee-scale)); }
+			50% { transform: translate3d(0, -5px, 0) rotate(calc(var(--coffee-tilt) + 2deg)) rotateY(var(--coffee-depth)) scale(var(--coffee-scale)); }
+		}
 		.product-blue { --product-deep: #07192e; --product-mid: #103863; --product-light: #58a8ed; --product-accent: #9acbff; }
 		.product-green { --product-deep: #0b2018; --product-mid: #174632; --product-light: #5fc28a; --product-accent: #a5e4bb; }
 		.product-yellow { --product-deep: #281e0b; --product-mid: #604613; --product-light: #e9b647; --product-accent: #f5d487; }
@@ -634,6 +804,14 @@
 			.hero-phrases { top: 44%; }
 			.hero-phrase { font-size: clamp(1.9rem, 8.2vw, 3.4rem); }
 			.product-section { grid-template-columns: 1fr; gap: 18px; min-height: auto; padding-block: 106px 76px; }
+			.coffee-decor__item { opacity: .12; animation-duration: 32s; }
+			.coffee-cup, .coffee-steam, .coffee-spoon, .coffee-maker { display: none; }
+			.coffee-bean { width: 15px; height: 24px; }
+			.coffee-leaf { width: 18px; height: 34px; }
+			.product-green .coffee-leaf--one { top: 3%; bottom: auto; left: 2%; }
+			.product-green .coffee-leaf--two { top: 5%; bottom: auto; left: 6%; }
+			.product-green .coffee-leaf--three { top: 2%; bottom: auto; left: 10%; }
+			.product-yellow .coffee-leaf--one { top: 4%; bottom: auto; left: 2%; }
 			.product-copy { max-width: 620px; }
 			.product-copy h2 { font-size: clamp(3.2rem, 14vw, 5.2rem); }
 			.product-cta { width: fit-content; }
@@ -654,6 +832,7 @@
 		@media (prefers-reduced-motion: reduce) {
 			*, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 			.hero-phrase { transition: none; }
+			.coffee-decor__item { animation: none; }
 		}
 	</style>
 </head>
@@ -689,6 +868,12 @@
 		</section>
 
 		<section class="product-section product-blue" id="produits-romio" aria-labelledby="blue-title">
+			<div class="coffee-decor" aria-hidden="true">
+				<span class="coffee-decor__item coffee-cup"></span>
+				<span class="coffee-decor__item coffee-steam"></span>
+				<span class="coffee-decor__item coffee-bean coffee-bean--one"></span>
+				<span class="coffee-decor__item coffee-bean coffee-bean--two"></span>
+			</div>
 			<div class="product-copy">
 				<span class="eyebrow">01 · La collection</span>
 				<p class="product-badge">Blue · Café en grains</p>
@@ -705,6 +890,12 @@
 		</section>
 
 		<section class="product-section product-green" aria-labelledby="green-title">
+			<div class="coffee-decor" aria-hidden="true">
+				<span class="coffee-decor__item coffee-leaf coffee-leaf--one"></span>
+				<span class="coffee-decor__item coffee-leaf coffee-leaf--two"></span>
+				<span class="coffee-decor__item coffee-leaf coffee-leaf--three"></span>
+				<span class="coffee-decor__item coffee-spoon"></span>
+			</div>
 			<div class="product-copy">
 				<span class="eyebrow">02 · La collection</span>
 				<p class="product-badge">Green · Café en grains</p>
@@ -721,6 +912,12 @@
 		</section>
 
 		<section class="product-section product-yellow" aria-labelledby="yellow-title">
+			<div class="coffee-decor" aria-hidden="true">
+				<span class="coffee-decor__item coffee-maker"><i class="coffee-maker__knob"></i><i class="coffee-maker__handle"></i><i class="coffee-maker__spout"></i></span>
+				<span class="coffee-decor__item coffee-bean coffee-bean--one"></span>
+				<span class="coffee-decor__item coffee-bean coffee-bean--two"></span>
+				<span class="coffee-decor__item coffee-leaf coffee-leaf--one"></span>
+			</div>
 			<div class="product-copy">
 				<span class="eyebrow">03 · La collection</span>
 				<p class="product-badge">Yellow · Café en grains</p>
