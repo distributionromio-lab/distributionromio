@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produit By Badila Healthy</title>
+  <meta name="description" content="Détails d’un produit By Badila Healthy proposé par Romio Distribution.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=DM+Sans:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1a140f;
+      --forest: #2a3a2e;
+      --olive: #70835d;
+      --sand: #f6efe7;
+      --paper: #fbf8f3;
+      --gold: #c7a767;
+      --muted: #5c5852;
+      --line: rgba(26, 19, 13, 0.12);
+      --page-gutter: clamp(22px, 6vw, 90px);
+      font-family: 'DM Sans', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; min-width: 320px; background: linear-gradient(180deg, #fbf8f5 0%, #f2eee7 100%); color: var(--ink); }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    h1, h2, h3 { font-family: 'Fraunces', serif; font-weight: 400; }
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 78px;
+      padding: 14px var(--page-gutter);
+      border-bottom: 1px solid rgba(25, 20, 15, 0.08);
+      background: rgba(247, 241, 234, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .brand { font-family: 'Fraunces', serif; font-size: 1.25rem; white-space: nowrap; }
+    .brand span { color: var(--gold); }
+    .nav-links { display: flex; align-items: center; gap: clamp(18px, 2vw, 30px); list-style: none; padding: 0; margin: 0; }
+    .nav-links a {
+      color: rgba(25, 20, 15, 0.88);
+      font-size: .88rem;
+      letter-spacing: .04em;
+      transition: color 180ms ease;
+    }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--forest); }
+
+    .page-shell {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: clamp(46px, 7vw, 94px) var(--page-gutter) 88px;
+    }
+    .detail-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+      gap: clamp(32px, 5vw, 54px);
+      align-items: center;
+      padding: clamp(20px, 3vw, 28px);
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      background: rgba(255,255,255,0.52);
+      box-shadow: 0 24px 44px rgba(22, 18, 14, 0.06);
+    }
+    .detail-image {
+      position: relative;
+      overflow: hidden;
+      border-radius: 26px;
+      background: linear-gradient(135deg, rgba(122,143,104,0.12), rgba(199,167,103,0.08));
+      border: 1px solid var(--line);
+      min-height: clamp(360px, 42vw, 560px);
+    }
+    .detail-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .detail-copy {
+      display: grid;
+      gap: 18px;
+    }
+    .detail-copy .eyebrow {
+      color: var(--olive);
+      font-size: .73rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .detail-copy h1 {
+      font-size: clamp(2.9rem, 5vw, 4.6rem);
+      line-height: 1.02;
+      letter-spacing: -.04em;
+    }
+    .detail-copy p {
+      margin: 0;
+      color: rgba(26, 20, 15, 0.8);
+      font-size: 1.02rem;
+      line-height: 1.8;
+    }
+    .detail-meta {
+      display: grid;
+      gap: 12px;
+      padding: 18px 0 0;
+      border-top: 1px solid var(--line);
+    }
+    .detail-meta strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--forest);
+      font-size: .72rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .detail-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 8px;
+    }
+    .primary-btn, .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(26, 20, 15, 0.12);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+    .primary-btn {
+      background: linear-gradient(135deg, #1d251f 0%, #384b3a 100%);
+      color: #f9f4ee;
+    }
+    .secondary-btn {
+      background: transparent;
+      color: var(--ink);
+    }
+    .primary-btn:hover, .secondary-btn:hover, .primary-btn:focus-visible, .secondary-btn:focus-visible {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(26, 20, 15, 0.08);
+    }
+
+    .related {
+      margin-top: 76px;
+    }
+    .related h2 {
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      margin-bottom: 24px;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .related-card {
+      display: grid;
+      gap: 14px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.5);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+    .related-card:hover, .related-card:focus-visible {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 24px rgba(22,18,14,0.06);
+    }
+    .related-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: rgba(122,143,104,0.08);
+    }
+    .related-card h3 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+    .related-card a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(25, 22, 17, 0.05);
+      font-size: .72rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    @media (max-width: 980px) {
+      .detail-card { grid-template-columns: 1fr; }
+      .related-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      .site-nav { flex-direction: column; min-height: auto; gap: 10px; padding-top: 16px; padding-bottom: 16px; }
+      .nav-links { flex-wrap: wrap; justify-content: center; }
+      .related-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Navigation principale">
+    <a class="brand" href="index.html#accueil">Romio <span>Distribution</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html#accueil">Accueil</a></li>
+      <li><a href="produits-by-badila.html">Nos Produits</a></li>
+      <li><a href="index.html#partenaire">Notre Partenaire</a></li>
+      <li><a href="index.html#histoire">À propos</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="page-shell">
+    <section class="detail-card" aria-live="polite">
+      <div class="detail-image">
+        <img id="productImage" src="imags/Huile de Cade.png" alt="Huile de Cade">
+      </div>
+
+      <div class="detail-copy">
+        <span class="eyebrow">By Badila Healthy</span>
+        <h1 id="productName">Produit</h1>
+        <p id="productDescription"></p>
+
+        <div class="detail-meta">
+          <div>
+            <strong>Présentation</strong>
+            <p id="productIntro"></p>
+          </div>
+          <div>
+            <strong>Informations disponibles</strong>
+            <p id="productInfo"></p>
+          </div>
+          <div>
+            <strong>Format</strong>
+            <p id="productFormat"></p>
+          </div>
+        </div>
+
+        <div class="detail-actions">
+          <a class="primary-btn" href="mailto:contact@romio-distribution.com">Demander des informations</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="related" aria-labelledby="related-title">
+      <h2 id="related-title">Découvrez également nos autres produits</h2>
+      <div class="related-grid" id="relatedGrid"></div>
+    </section>
+  </main>
+
+  <script>
+    const productData = {
+      menthe: {
+        name: 'Huile de Menthe aux Herbes Fraîches',
+        description: 'Huile de Menthe aux Herbes Fraîches de By Badila Healthy.',
+        intro: 'Huile de Menthe aux Herbes Fraîches présentée dans la collection By Badila Healthy.',
+        info: 'Huile de Menthe aux Herbes Fraîches.',
+        format: '250 ml',
+        image: 'imags/Huile de menthe aux herbes fraîches.png'
+      },
+      'menthe-classique': {
+        name: 'Huile de Menthe',
+        description: 'Huile de Menthe de la gamme By Badila Healthy.',
+        intro: 'Huile de Menthe présentée dans la collection By Badila Healthy.',
+        info: 'Huile de Menthe.',
+        format: '250 ml',
+        image: 'imags/Huile de Menthe.png'
+      },
+      'fleur-oranger': {
+        name: 'Huile de Fleur d’Oranger',
+        description: 'Huile de Fleur d’Oranger de la gamme By Badila Healthy.',
+        intro: 'Huile de Fleur d’Oranger présentée dans la collection By Badila Healthy.',
+        info: 'Huile de Fleur d’Oranger.',
+        format: '250 ml',
+        image: 'imags/Huile de fleur d’oranger naturelle.png'
+      },
+      cade: {
+        name: 'Huile de Cade',
+        description: 'Huile de Cade de la gamme By Badila Healthy.',
+        intro: 'Huile de Cade présentée dans la collection By Badila Healthy.',
+        info: 'Huile de Cade.',
+        format: '250 ml',
+        image: 'imags/Huile de Cade.png'
+      },
+      savon: {
+        name: 'Huile de Savon',
+        description: 'Huile de Savon de la gamme By Badila Healthy.',
+        intro: 'Huile de Savon présentée dans la collection By Badila Healthy.',
+        info: 'Huile de Savon.',
+        format: '250 ml',
+        image: 'imags/Huile de Savon.png'
+      }
+    };
+
+    const orderedKeys = ['cade', 'fleur-oranger', 'menthe', 'menthe-classique', 'savon'];
+    const params = new URLSearchParams(window.location.search);
+    const selected = params.get('product') || 'cade';
+    const current = productData[selected] || productData.cade;
+
+    document.getElementById('productName').textContent = current.name;
+    document.getElementById('productDescription').textContent = current.description;
+    document.getElementById('productIntro').textContent = current.intro;
+    document.getElementById('productInfo').textContent = current.info;
+    document.getElementById('productFormat').textContent = current.format;
+
+    const image = document.getElementById('productImage');
+    image.src = current.image;
+    image.alt = current.name;
+
+    const relatedGrid = document.getElementById('relatedGrid');
+    orderedKeys.filter(key => key !== selected).forEach((key) => {
+      const item = productData[key];
+      const card = document.createElement('article');
+      card.className = 'related-card';
+      card.innerHTML = `
+        <img src="${item.image}" alt="${item.name}">
+        <h3>${item.name}</h3>
+        <a href="produit-detail.html?product=${key}">Voir les détails</a>
+      `;
+      relatedGrid.appendChild(card);
+    });
+  </script>
+</body>
+</html>

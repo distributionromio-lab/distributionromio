@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nos Produits — By Badila Healthy</title>
+  <meta name="description" content="Découvrez la sélection de produits naturels By Badila Healthy proposée par Romio Distribution.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=DM+Sans:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #191611;
+      --forest: #2b3a2f;
+      --olive: #74885a;
+      --sand: #f4efe7;
+      --paper: #f9f6f1;
+      --gold: #c4a66a;
+      --muted: #5f5a52;
+      --line: rgba(26, 19, 13, 0.14);
+      --page-gutter: clamp(22px, 6vw, 90px);
+      font-family: 'DM Sans', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; min-width: 320px; overflow-x: hidden; background: linear-gradient(180deg, #f7f2eb 0%, #f5f1eb 100%); color: var(--ink); }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    h1, h2, h3 { font-family: 'Fraunces', serif; font-weight: 400; }
+
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 78px;
+      padding: 14px var(--page-gutter);
+      border-bottom: 1px solid rgba(25, 22, 17, 0.08);
+      background: rgba(246, 240, 233, 0.78);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .brand { font-family: 'Fraunces', serif; font-size: 1.25rem; white-space: nowrap; }
+    .brand span { color: var(--gold); }
+    .nav-links { display: flex; align-items: center; gap: clamp(18px, 2vw, 28px); list-style: none; padding: 0; margin: 0; }
+    .nav-links a {
+      color: rgba(25, 22, 17, 0.86);
+      font-size: .88rem;
+      letter-spacing: .04em;
+      transition: color 180ms ease;
+    }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--forest); }
+
+    .page-shell {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: clamp(48px, 7vw, 92px) var(--page-gutter) 72px;
+    }
+
+    .page-hero {
+      display: grid;
+      gap: 12px;
+      text-align: center;
+      padding-bottom: 26px;
+    }
+    .page-hero .eyebrow {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      font-size: .74rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--olive);
+      font-weight: 600;
+    }
+    .page-hero .eyebrow::before,
+    .page-hero .eyebrow::after {
+      content: '';
+      width: 38px;
+      height: 1px;
+      background: currentColor;
+    }
+    .page-hero h1 {
+      font-size: clamp(2.7rem, 5vw, 5rem);
+      line-height: 1.02;
+      letter-spacing: -.04em;
+    }
+    .page-hero p {
+      max-width: 760px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.8;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-auto-rows: 1fr;
+      gap: 24px;
+      margin-top: 42px;
+    }
+
+    .product-card {
+      display: flex;
+      flex-direction: column;
+      background: rgba(255,255,255,0.46);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 18px 36px rgba(26, 18, 11, 0.06);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+    .product-card:hover, .product-card:focus-visible {
+      transform: translateY(-6px);
+      box-shadow: 0 28px 44px rgba(26, 18, 11, 0.08);
+    }
+    .product-image {
+      position: relative;
+      height: 360px;
+      padding: 12px;
+      background: linear-gradient(180deg, rgba(126,145,106,0.08), rgba(196,166,106,0.08));
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .product-body {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      gap: 14px;
+      padding: 20px 18px 18px;
+    }
+    .product-body h3 {
+      margin: 0;
+      font-size: clamp(1.3rem, 2vw, 1.8rem);
+    }
+    .product-body p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .95rem;
+      line-height: 1.7;
+    }
+    .product-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: auto;
+      padding: 12px 16px;
+      border: 1px solid rgba(25,22,17,0.12);
+      border-radius: 999px;
+      background: #1c231d;
+      color: #f8f3ee;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: background-color 180ms ease, transform 180ms ease;
+    }
+    .product-link:hover, .product-link:focus-visible {
+      background: #334334;
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 1100px) {
+      .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      .nav-links { gap: 12px; flex-wrap: wrap; justify-content: center; }
+      .site-nav { flex-direction: column; min-height: auto; gap: 10px; padding-top: 16px; padding-bottom: 16px; }
+      .product-grid { grid-template-columns: 1fr; }
+      .product-image { height: 340px; }
+    }
+    .site-footer {
+      padding: 26px var(--page-gutter);
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .78rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Navigation principale">
+    <a class="brand" href="index.html#accueil">Romio <span>Distribution</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html#accueil">Accueil</a></li>
+      <li><a href="produits-by-badila.html">Nos Produits</a></li>
+      <li><a href="index.html#partenaire">Notre Partenaire</a></li>
+      <li><a href="index.html#histoire">À propos</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="page-shell">
+    <header class="page-hero">
+      <span class="eyebrow">By Badila Healthy</span>
+      <h1>Les produits By Badila Healthy</h1>
+      <p>Découvrez notre sélection de produits naturels.</p>
+    </header>
+
+    <section class="product-grid" aria-label="Catalogue By Badila Healthy">
+      <article class="product-card">
+        <div class="product-image"><img src="imags/Huile de Cade.png" alt="Huile de Cade" loading="lazy"></div>
+        <div class="product-body">
+          <h3>Huile de Cade</h3>
+          <p>Huile de Cade de la gamme By Badila Healthy.</p>
+          <p>Format : 250 ml</p>
+          <a class="product-link" href="produit-detail.html?product=cade">Fiche produit</a>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-image"><img src="imags/Huile de fleur d’oranger naturelle.png" alt="Huile de Fleur d’Oranger" loading="lazy"></div>
+        <div class="product-body">
+          <h3>Huile de Fleur d’Oranger</h3>
+          <p>Huile de Fleur d’Oranger de la gamme By Badila Healthy.</p>
+          <p>Format : 250 ml</p>
+          <a class="product-link" href="produit-detail.html?product=fleur-oranger">Fiche produit</a>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-image"><img src="imags/Huile de menthe aux herbes fraîches.png" alt="Huile de Menthe aux Herbes Fraîches" loading="lazy"></div>
+        <div class="product-body">
+          <h3>Huile de Menthe aux Herbes Fraîches</h3>
+          <p>By Badila Healthy.</p>
+          <p>Format : 250 ml</p>
+          <a class="product-link" href="produit-detail.html?product=menthe">Fiche produit</a>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-image"><img src="imags/Huile de Menthe.png" alt="Huile de Menthe" loading="lazy"></div>
+        <div class="product-body">
+          <h3>Huile de Menthe</h3>
+          <p>Huile de Menthe de la gamme By Badila Healthy.</p>
+          <p>Format : 250 ml</p>
+          <a class="product-link" href="produit-detail.html?product=menthe-classique">Fiche produit</a>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-image"><img src="imags/Huile de Savon.png" alt="Huile de Savon" loading="lazy"></div>
+        <div class="product-body">
+          <h3>Huile de Savon</h3>
+          <p>Huile de Savon de la gamme By Badila Healthy.</p>
+          <p>Format : 250 ml</p>
+          <a class="product-link" href="produit-detail.html?product=savon">Fiche produit</a>
+        </div>
+      </article>
+    </section>
+  </main>
+  <footer class="site-footer">© 2026 Romio Distribution · Tous droits réservés</footer>
+</body>
+</html>
