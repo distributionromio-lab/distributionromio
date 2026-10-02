@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Produit By Badila Healthy</title>
   <meta name="description" content="Détails d’un produit By Badila Healthy proposé par Romio Distribution.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -213,15 +213,19 @@
       .related-grid { grid-template-columns: 1fr; }
     }
   </style>
+  <link rel="stylesheet" href="site-nav.css">
 </head>
 <body>
   <nav class="site-nav" aria-label="Navigation principale">
     <a class="brand" href="index.html#accueil">Romio <span>Distribution</span></a>
-    <ul class="nav-links">
+    <button class="nav-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
       <li><a href="index.html#accueil">Accueil</a></li>
       <li><a href="produits-by-badila.html">Nos Produits</a></li>
       <li><a href="index.html#partenaire">Notre Partenaire</a></li>
-      <li><a href="index.html#histoire">À propos</a></li>
+      <li><a href="index.html#localisation">Localisation</a></li>
       <li><a href="index.html#contact">Contact</a></li>
     </ul>
   </nav>
@@ -336,5 +340,6 @@
       relatedGrid.appendChild(card);
     });
   </script>
+  <script src="site-nav.js" defer></script>
 </body>
 </html>

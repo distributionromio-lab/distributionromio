@@ -35,6 +35,7 @@
 		body { min-width: 320px; overflow-x: hidden; }
 		button, a { font: inherit; }
 		a { color: inherit; }
+		a:active, button:active { opacity: .82; }
 		h1, h2, h3 { font-family: 'Fraunces', serif; font-weight: 400; }
 		section { position: relative; min-height: 100vh; min-height: 100svh; }
 
@@ -58,6 +59,9 @@
 			border-color: rgb(255 255 255 / 14%);
 		}
 		.brand {
+			display: inline-flex;
+			align-items: center;
+			min-height: 48px;
 			position: relative;
 			z-index: 2;
 			font-family: 'Fraunces', serif;
@@ -68,6 +72,9 @@
 		.brand span { color: var(--gold); }
 		.nav-links { display: flex; align-items: center; gap: clamp(18px, 3vw, 42px); list-style: none; }
 		.nav-links a {
+			display: flex;
+			align-items: center;
+			min-height: 44px;
 			color: rgb(243 236 220 / 82%);
 			font-size: .88rem;
 			letter-spacing: .04em;
@@ -98,25 +105,41 @@
 			display: none;
 			position: relative;
 			z-index: 2;
-			width: 44px;
-			height: 44px;
-			border: 1px solid rgb(243 236 220 / 35%);
-			border-radius: 50%;
-			background: transparent;
+			width: 48px;
+			height: 48px;
+			border: 0;
+			background: none;
 			color: var(--cream);
 			cursor: pointer;
 		}
+		.nav-toggle span {
+			grid-column: 1;
+			width: 18px;
+			height: 1px;
+			background: currentColor;
+			transition: transform 180ms ease, opacity 180ms ease;
+		}
+		.nav-toggle[aria-expanded="true"] span:first-child { transform: translateY(6px) rotate(45deg); }
+		.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+		.nav-toggle[aria-expanded="true"] span:last-child { transform: translateY(-6px) rotate(-45deg); }
 
 		.hero {
+			--hero-nav-height: 78px;
+			position: relative;
 			display: flex;
-			align-items: flex-end;
-			overflow: hidden;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
 			isolation: isolate;
-			padding: 150px var(--page-gutter) clamp(124px, 16vh, 180px);
-			background:
-				radial-gradient(ellipse at 72% 43%, rgb(66 106 118 / 24%), transparent 38%),
-				radial-gradient(ellipse at 18% 82%, rgb(110 73 42 / 20%), transparent 42%),
-				linear-gradient(125deg, #111612 4%, #202a25 55%, #111713 100%);
+			width: 100%;
+			height: calc(100vh - var(--hero-nav-height) - env(safe-area-inset-top, 0px));
+			height: calc(100svh - var(--hero-nav-height) - env(safe-area-inset-top, 0px));
+			height: calc(100dvh - var(--hero-nav-height) - env(safe-area-inset-top, 0px));
+			min-height: 0;
+			margin-top: calc(var(--hero-nav-height) + env(safe-area-inset-top, 0px));
+			overflow: hidden;
+			padding: 0 var(--page-gutter);
+			text-align: center;
 		}
 		.hero-video {
 			position: absolute;
@@ -143,17 +166,17 @@
 		}
 		.hero-content { position: relative; z-index: 2; width: min(780px, 100%); }
 		.hero-phrases {
-			position: absolute;
+			position: relative;
 			z-index: 2;
-			top: 47%;
-			left: 50%;
+			top: auto;
+			left: auto;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
 			gap: clamp(2px, 1.5vh, 14px);
 			width: min(900px, calc(100% - 2 * var(--page-gutter)));
-			transform: translate(-50%, -50%);
+			transform: none;
 			text-align: center;
 			pointer-events: none;
 		}
@@ -253,17 +276,45 @@
 			overflow: hidden;
 			pointer-events: none;
 		}
+		.coffee-webgl {
+			position: absolute;
+			z-index: 0;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 1.1s ease;
+		}
+		.coffee-decor.is-visible .coffee-webgl { opacity: 1; }
+		.coffee-decor.has-webgl .coffee-decor__item { display: none; }
 		.coffee-decor__item {
 			position: absolute;
 			display: block;
-			opacity: .24;
+			opacity: 0;
 			pointer-events: none;
 			transform-style: preserve-3d;
+			translate: var(--entry-x, 0px) var(--entry-y, 12px);
+			transition: opacity 950ms ease, translate 1.25s cubic-bezier(.18,.68,.24,1), filter 1.25s ease;
 			--coffee-tilt: 0deg;
 			--coffee-depth: 0deg;
 			--coffee-scale: 1;
 			animation: coffee-float 24s ease-in-out infinite;
+			animation-play-state: paused;
 		}
+		.coffee-decor.is-visible .coffee-decor__item {
+			opacity: var(--coffee-opacity, .24);
+			translate: 0 0;
+			animation-play-state: running;
+		}
+		.coffee-decor.is-visible .coffee-decor__item:nth-child(4n + 2) { transition-delay: 120ms; }
+		.coffee-decor.is-visible .coffee-decor__item:nth-child(4n + 3) { transition-delay: 240ms; }
+		.coffee-decor.is-visible .coffee-decor__item:nth-child(4n + 4) { transition-delay: 360ms; }
+		.coffee-decor__item--far { --coffee-opacity: .12; filter: blur(1.2px); }
+		.coffee-decor__item--near { --coffee-opacity: .3; }
+		.coffee-decor__item--from-left { --entry-x: -46px; --entry-y: 10px; }
+		.coffee-decor__item--from-right { --entry-x: 46px; --entry-y: 10px; }
+		.coffee-decor__item--rise { --entry-y: 24px; }
 		.coffee-bean {
 			width: 22px;
 			height: 34px;
@@ -416,9 +467,144 @@
 			0%, 100% { transform: translate3d(0, 0, 0) rotate(var(--coffee-tilt)) rotateY(var(--coffee-depth)) scale(var(--coffee-scale)); }
 			50% { transform: translate3d(0, -5px, 0) rotate(calc(var(--coffee-tilt) + 2deg)) rotateY(var(--coffee-depth)) scale(var(--coffee-scale)); }
 		}
+		.coffee-grinder {
+			width: 54px;
+			height: 86px;
+			filter: drop-shadow(0 9px 12px rgb(0 0 0 / 18%));
+		}
+		.coffee-grinder::before {
+			position: absolute;
+			top: 0;
+			left: 18%;
+			width: 64%;
+			height: 32%;
+			clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+			border-radius: 4px 4px 7px 7px;
+			background: linear-gradient(100deg, color-mix(in srgb, var(--product-accent) 70%, #eee), color-mix(in srgb, var(--product-mid) 78%, #111));
+			content: '';
+		}
+		.coffee-grinder::after {
+			position: absolute;
+			top: 35%;
+			left: 12%;
+			width: 76%;
+			height: 58%;
+			border-radius: 9px 9px 15px 15px;
+			background: linear-gradient(105deg, color-mix(in srgb, var(--product-mid) 50%, #d6c19d), color-mix(in srgb, var(--product-deep) 80%, #16110b) 62%, color-mix(in srgb, var(--product-accent) 38%, #6d6049));
+			box-shadow: inset 3px 0 5px rgb(255 255 255 / 14%), inset -3px -2px 5px rgb(0 0 0 / 25%);
+			content: '';
+		}
+		.coffee-grinder__crank, .coffee-grinder__knob { position: absolute; z-index: 1; display: block; }
+		.coffee-grinder__crank {
+			top: 12%;
+			right: 7%;
+			width: 25px;
+			height: 3px;
+			border-radius: 3px;
+			background: color-mix(in srgb, var(--product-accent) 64%, #ddd);
+			transform: rotate(-24deg);
+			transform-origin: left center;
+		}
+		.coffee-grinder__knob {
+			top: 4%;
+			right: 0;
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: color-mix(in srgb, var(--product-accent) 65%, #eee);
+		}
+		.coffee-bag {
+			width: 58px;
+			height: 76px;
+			clip-path: polygon(10% 0, 90% 0, 100% 12%, 94% 100%, 6% 100%, 0 12%);
+			border-radius: 6px;
+			background: linear-gradient(105deg, color-mix(in srgb, var(--product-accent) 50%, #c9a875), color-mix(in srgb, var(--product-deep) 66%, #35251a) 62%, color-mix(in srgb, var(--product-accent) 35%, #8a6c46));
+			box-shadow: inset 4px 1px 8px rgb(255 255 255 / 17%), inset -5px -4px 8px rgb(0 0 0 / 26%), 0 11px 19px rgb(0 0 0 / 18%);
+		}
+		.coffee-bag__fold, .coffee-bag__label { position: absolute; display: block; }
+		.coffee-bag__fold {
+			top: 4%;
+			left: 10%;
+			width: 80%;
+			height: 12%;
+			border-bottom: 1px solid rgb(243 236 220 / 35%);
+			background: linear-gradient(180deg, rgb(255 255 255 / 16%), transparent);
+		}
+		.coffee-bag__label {
+			top: 37%;
+			left: 23%;
+			width: 54%;
+			height: 30%;
+			border: 1px solid rgb(243 236 220 / 30%);
+			border-radius: 2px;
+			background: linear-gradient(145deg, rgb(243 236 220 / 34%), rgb(243 236 220 / 8%));
+		}
+		.coffee-capsule {
+			width: 19px;
+			height: 31px;
+			clip-path: polygon(18% 0, 82% 0, 100% 72%, 50% 100%, 0 72%);
+			border-radius: 45% 45% 35% 35%;
+			background: linear-gradient(100deg, color-mix(in srgb, var(--product-accent) 78%, #eee), color-mix(in srgb, var(--product-mid) 78%, #111) 62%, color-mix(in srgb, var(--product-accent) 58%, #888));
+			box-shadow: inset 2px 0 3px rgb(255 255 255 / 28%), 0 7px 11px rgb(0 0 0 / 20%);
+		}
+		.coffee-capsule::after {
+			position: absolute;
+			top: 5%;
+			left: 27%;
+			width: 46%;
+			height: 18%;
+			border-radius: 50%;
+			background: rgb(255 255 255 / 27%);
+			content: '';
+		}
+		.coffee-particle {
+			width: 4px;
+			height: 4px;
+			border-radius: 50%;
+			background: color-mix(in srgb, var(--product-accent) 70%, #f3ecdc);
+			box-shadow: 0 0 8px color-mix(in srgb, var(--product-accent) 45%, transparent), 0 2px 5px rgb(0 0 0 / 20%);
+		}
+		.coffee-decor__item--mobile-hide { display: block; }
+		.coffee-blue .coffee-bean--three { top: 3%; left: 15%; --coffee-tilt: -34deg; --coffee-scale: .78; }
+		.coffee-blue .coffee-bean--four { top: 4%; right: 9%; --coffee-tilt: 28deg; --coffee-scale: .82; }
+		.coffee-blue .coffee-bean--five { top: 14%; left: 3%; --coffee-tilt: 12deg; --coffee-scale: .66; }
+		.coffee-blue .coffee-leaf--one { top: 3%; right: 23%; --coffee-tilt: 38deg; --coffee-scale: .8; }
+		.coffee-blue .coffee-leaf--two { bottom: 3%; left: 20%; --coffee-tilt: -32deg; --coffee-scale: .72; }
+		.coffee-blue .coffee-grinder { top: 2%; right: 3%; --coffee-tilt: 5deg; --coffee-depth: -8deg; --coffee-scale: .86; }
+		.coffee-blue .coffee-bag { bottom: 2%; left: 12%; --coffee-tilt: -8deg; --coffee-depth: 8deg; --coffee-scale: .82; }
+		.coffee-blue .coffee-capsule--one { top: 10%; right: 15%; --coffee-tilt: 16deg; --coffee-scale: .85; }
+		.coffee-blue .coffee-capsule--two { bottom: 4%; right: 5%; --coffee-tilt: -22deg; --coffee-scale: .72; }
+		.coffee-blue .coffee-particle--one { top: 7%; left: 23%; }
+		.coffee-blue .coffee-particle--two { top: 13%; right: 24%; --coffee-scale: .7; }
+		.coffee-blue .coffee-particle--three { bottom: 5%; left: 6%; --coffee-scale: .6; }
+		.coffee-green .coffee-leaf--four { top: 3%; right: 6%; --coffee-tilt: 42deg; --coffee-scale: .84; }
+		.coffee-green .coffee-bean--one { top: 3%; left: 6%; --coffee-tilt: -28deg; }
+		.coffee-green .coffee-bean--two { top: 10%; left: 12%; --coffee-tilt: 24deg; --coffee-scale: .72; }
+		.coffee-green .coffee-bean--three { bottom: 5%; left: 3%; --coffee-tilt: 14deg; --coffee-scale: .76; }
+		.coffee-green .coffee-grinder { top: 2%; right: 15%; --coffee-tilt: -6deg; --coffee-depth: 8deg; --coffee-scale: .8; }
+		.coffee-green .coffee-bag { top: 3%; left: 19%; --coffee-tilt: 8deg; --coffee-scale: .76; }
+		.coffee-green .coffee-capsule--one { top: 10%; right: 7%; --coffee-tilt: -16deg; }
+		.coffee-green .coffee-capsule--two { bottom: 5%; left: 15%; --coffee-tilt: 24deg; --coffee-scale: .74; }
+		.coffee-green .coffee-particle--one { top: 7%; left: 15%; }
+		.coffee-green .coffee-particle--two { bottom: 4%; left: 10%; --coffee-scale: .7; }
+		.coffee-green .coffee-particle--three { bottom: 13%; left: 3%; --coffee-scale: .55; }
+		.coffee-yellow .coffee-bean--three { top: 3%; right: 9%; --coffee-tilt: 22deg; --coffee-scale: .8; }
+		.coffee-yellow .coffee-bean--four { bottom: 3%; left: 16%; --coffee-tilt: -26deg; --coffee-scale: .72; }
+		.coffee-yellow .coffee-leaf--two { top: 3%; right: 23%; --coffee-tilt: 32deg; --coffee-scale: .82; }
+		.coffee-yellow .coffee-bag { bottom: 2%; left: 8%; --coffee-tilt: 7deg; --coffee-depth: -9deg; --coffee-scale: .82; }
+		.coffee-yellow .coffee-grinder { top: 2%; right: 4%; --coffee-tilt: 8deg; --coffee-depth: 10deg; --coffee-scale: .82; }
+		.coffee-yellow .coffee-capsule--one { top: 10%; right: 16%; --coffee-tilt: 18deg; }
+		.coffee-yellow .coffee-capsule--two { bottom: 5%; right: 5%; --coffee-tilt: -20deg; --coffee-scale: .74; }
+		.coffee-yellow .coffee-particle--one { top: 8%; left: 17%; }
+		.coffee-yellow .coffee-particle--two { bottom: 4%; left: 21%; --coffee-scale: .62; }
+		.coffee-blue .coffee-decor__item--from-left, .coffee-green .coffee-decor__item--from-left, .coffee-yellow .coffee-decor__item--from-left { --entry-x: -42px; --entry-y: 10px; }
+		.coffee-blue .coffee-decor__item--from-right, .coffee-green .coffee-decor__item--from-right, .coffee-yellow .coffee-decor__item--from-right { --entry-x: 42px; --entry-y: 10px; }
 		.product-blue { --product-deep: #07192e; --product-mid: #103863; --product-light: #58a8ed; --product-accent: #9acbff; }
 		.product-green { --product-deep: #0b2018; --product-mid: #174632; --product-light: #5fc28a; --product-accent: #a5e4bb; }
 		.product-yellow { --product-deep: #281e0b; --product-mid: #604613; --product-light: #e9b647; --product-accent: #f5d487; }
+		.coffee-blue { --product-deep: #07192e; --product-mid: #103863; --product-light: #58a8ed; --product-accent: #9acbff; }
+		.coffee-green { --product-deep: #0b2018; --product-mid: #174632; --product-light: #5fc28a; --product-accent: #a5e4bb; }
+		.coffee-yellow { --product-deep: #281e0b; --product-mid: #604613; --product-light: #e9b647; --product-accent: #f5d487; }
 		.product-copy { position: relative; z-index: 1; width: min(540px, 100%); }
 		.product-copy .eyebrow {
 			margin-bottom: 23px;
@@ -473,6 +659,7 @@
 			align-items: center;
 			gap: 18px;
 			margin-top: 36px;
+			min-height: 48px;
 			padding: 15px 22px 15px 18px;
 			border: 1px solid rgb(255 255 255 / 20%);
 			border-radius: 999px;
@@ -565,20 +752,7 @@
 			letter-spacing: .08em;
 			text-transform: uppercase;
 		}
-		.story-copy h2, .contact-content h2 { font-size: clamp(2.4rem, 5vw, 4.3rem); line-height: 1.05; }
-
-		.story {
-			display: grid;
-			grid-template-columns: minmax(220px, .8fr) minmax(0, 1.2fr);
-			align-items: center;
-			gap: clamp(36px, 9vw, 140px);
-			padding: 120px var(--page-gutter);
-			background: var(--ink);
-		}
-		.story-mark { color: var(--gold); font-family: 'Fraunces', serif; font-size: clamp(5rem, 15vw, 13rem); line-height: .8; opacity: .8; }
-		.story-copy { max-width: 640px; }
-		.story-copy .eyebrow { margin-bottom: 20px; }
-		.story-copy p { margin-top: 20px; color: var(--muted); font-weight: 300; line-height: 1.8; }
+		.contact-content h2 { font-size: clamp(2.4rem, 5vw, 4.3rem); line-height: 1.05; }
 
 		.location-section {
 			display: grid;
@@ -645,6 +819,7 @@
 			align-items: center;
 			justify-content: center;
 			margin-top: 26px;
+			min-height: 48px;
 			padding: 14px 22px;
 			border: 1px solid var(--gold);
 			background: transparent;
@@ -663,13 +838,31 @@
 		}
 
 		.partner-section {
-			display: grid;
-			grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
-			align-items: center;
-			gap: clamp(28px, 6vw, 70px);
+			display: block;
 			padding: 120px var(--page-gutter);
 			background: linear-gradient(180deg, #f5efe5 0%, #f9f5ef 100%);
 			color: #201812;
+		}
+		.partner-heading { text-align: center; }
+		.partner-heading .eyebrow { justify-content: center; margin-bottom: 16px; }
+		.partner-heading h2 { color: #1b1d18; font-size: clamp(2.6rem, 5vw, 4.2rem); line-height: 1.06; }
+		.partner-grid {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			align-items: stretch;
+			gap: clamp(20px, 3vw, 40px);
+			max-width: 1440px;
+			margin: 48px auto 0;
+		}
+		.partner-card {
+			display: flex;
+			flex-direction: column;
+			min-width: 0;
+			overflow: hidden;
+			border: 1px solid rgb(26 21 17 / 12%);
+			border-radius: 18px;
+			background: rgb(255 255 255 / 48%);
+			box-shadow: 0 22px 56px rgb(34 29 24 / 8%);
 		}
 		.partner-visual {
 			position: relative;
@@ -679,15 +872,17 @@
 			background: linear-gradient(135deg, rgba(129, 151, 110, 0.11), rgba(212, 169, 88, 0.08));
 			box-shadow: 0 22px 56px rgb(34 29 24 / 10%);
 		}
+		.partner-card .partner-visual { flex: none; border: 0; border-radius: 0; box-shadow: none; }
 		.partner-visual img {
 			display: block;
 			width: 100%;
-			height: clamp(320px, 42vw, 560px);
+			height: clamp(260px, 24vw, 360px);
 			object-fit: cover;
 			object-position: center;
 		}
 		.partner-copy {
-			max-width: 570px;
+			max-width: none;
+			padding: 30px clamp(22px, 3vw, 40px) 36px;
 		}
 		.partner-copy .eyebrow {
 			margin-bottom: 20px;
@@ -744,6 +939,7 @@
 			align-items: center;
 			justify-content: center;
 			margin-top: 30px;
+			min-height: 48px;
 			padding: 15px 24px;
 			border: 1px solid rgba(31, 24, 18, 0.12);
 			border-radius: 999px;
@@ -772,17 +968,74 @@
 		.contact-content .eyebrow { justify-content: center; }
 		.contact-content > p { max-width: 52ch; margin: 20px auto 0; color: var(--muted); font-weight: 300; line-height: 1.7; }
 		.contact-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 34px; }
-		.contact-actions a { min-width: 160px; padding: 14px 22px; border: 1px solid var(--gold); text-decoration: none; transition: background-color 180ms ease, color 180ms ease; }
+		.contact-actions a { display: inline-flex; align-items: center; justify-content: center; min-width: 160px; min-height: 48px; padding: 14px 22px; border: 1px solid var(--gold); text-decoration: none; transition: background-color 180ms ease, color 180ms ease; }
 		.contact-actions a.primary { background: var(--gold); color: var(--ink); }
 		.contact-actions a:hover { background: var(--gold); color: var(--ink); }
+		.whatsapp-contact {
+			display: grid;
+			grid-template-columns: 48px minmax(0, 1fr);
+			align-items: center;
+			gap: 8px 16px;
+			width: min(100%, 520px);
+			min-height: 88px;
+			margin: 30px auto 0;
+			padding: 17px 22px;
+			border: 1px solid rgb(212 169 88 / 42%);
+			background: linear-gradient(120deg, rgb(255 255 255 / 5%), rgb(255 255 255 / 1%));
+			color: var(--cream);
+			text-align: left;
+			text-decoration: none;
+			transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+		}
+		.whatsapp-contact:hover, .whatsapp-contact:focus-visible {
+			transform: translateY(-2px);
+			border-color: var(--gold);
+			background: rgb(255 255 255 / 7%);
+			box-shadow: 0 14px 30px rgb(0 0 0 / 16%);
+		}
+		.whatsapp-icon { grid-row: span 2; width: 42px; height: 42px; color: #9bc58e; }
+		.whatsapp-heading { color: var(--cream); font-size: .92rem; font-weight: 600; }
+		.whatsapp-details { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; color: var(--muted); font-size: .82rem; }
+		.whatsapp-number { color: var(--cream); font-weight: 500; white-space: nowrap; }
+		.social-area { margin-top: 34px; padding-top: 24px; border-top: 1px solid rgb(212 169 88 / 24%); }
+		.social-heading { margin-bottom: 16px; color: var(--gold); font-size: .72rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; }
+		.social-links { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+		.social-link {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 7px;
+			min-width: 0;
+			min-height: 68px;
+			padding: 8px 6px;
+			border: 1px solid rgb(243 236 220 / 17%);
+			color: rgb(243 236 220 / 86%);
+			font-size: .68rem;
+			font-weight: 500;
+			text-decoration: none;
+			transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease, color 180ms ease;
+		}
+		.social-link svg { display: block; width: 22px; height: 22px; flex: 0 0 22px; }
+		.social-link:hover, .social-link:focus-visible {
+			transform: translateY(-2px);
+			border-color: var(--gold);
+			background: rgb(212 169 88 / 12%);
+			color: var(--cream);
+		}
 		footer { position: absolute; right: var(--page-gutter); bottom: 28px; left: var(--page-gutter); color: rgb(243 236 220 / 55%); font-size: .75rem; }
 
-		@media (max-width: 760px) {
-			.site-nav { min-height: 70px; }
-			.nav-toggle { display: grid; place-items: center; }
+		@media (max-width: 900px) {
+			.site-nav {
+				min-height: 70px;
+				background: rgb(10 13 16 / 88%);
+				backdrop-filter: none;
+				-webkit-backdrop-filter: none;
+			}
+			.nav-toggle { display: grid; grid-template-rows: repeat(3, 1px); gap: 5px; place-items: center; }
 			.nav-links {
 				position: fixed;
-				inset: 0 0 0 auto;
+				inset: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px) auto;
 				z-index: 1;
 				display: flex;
 				flex-direction: column;
@@ -790,24 +1043,32 @@
 				justify-content: center;
 				gap: 28px;
 				width: min(82vw, 360px);
-				padding: 40px;
+				max-height: 100vh;
+				max-height: 100dvh;
+				padding: max(40px, env(safe-area-inset-top, 0px)) clamp(24px, 8vw, 40px) max(40px, env(safe-area-inset-bottom, 0px));
+				overflow-y: auto;
+				overscroll-behavior: contain;
 				background: rgba(20, 23, 25, 0.96);
-				backdrop-filter: blur(14px);
 				transform: translateX(100%);
+				visibility: hidden;
+				pointer-events: none;
 				transition: transform 240ms ease;
 			}
-			.nav-links.open { transform: translateX(0); }
-			.nav-links a { font-family: 'Fraunces', serif; font-size: 1.65rem; }
+			.nav-links.open { visibility: visible; pointer-events: auto; transform: translateX(0); }
+			body.menu-open { overflow: hidden; }
+			.nav-links a { display: flex; min-height: 48px; align-items: center; font-family: 'Fraunces', serif; font-size: 1.65rem; }
 			.nav-actions { padding-left: 0; }
-			.hero { align-items: center; padding-top: 130px; padding-bottom: 140px; }
+			.hero { --hero-nav-height: 77px; padding: 0 var(--page-gutter); }
 			.hero h1 { font-size: clamp(3rem, 13vw, 5.2rem); }
-			.hero-phrases { top: 44%; }
 			.hero-phrase { font-size: clamp(1.9rem, 8.2vw, 3.4rem); }
 			.product-section { grid-template-columns: 1fr; gap: 18px; min-height: auto; padding-block: 106px 76px; }
-			.coffee-decor__item { opacity: .12; animation-duration: 32s; }
+			.coffee-decor.is-visible .coffee-decor__item { --coffee-opacity: .15; animation-duration: 32s; }
+			.coffee-decor__item--mobile-hide { display: none; }
+			.coffee-decor__item--far { --coffee-opacity: .08; filter: blur(.4px); }
 			.coffee-cup, .coffee-steam, .coffee-spoon, .coffee-maker { display: none; }
 			.coffee-bean { width: 15px; height: 24px; }
 			.coffee-leaf { width: 18px; height: 34px; }
+			.coffee-particle { width: 2px; height: 2px; }
 			.product-green .coffee-leaf--one { top: 3%; bottom: auto; left: 2%; }
 			.product-green .coffee-leaf--two { top: 5%; bottom: auto; left: 6%; }
 			.product-green .coffee-leaf--three { top: 2%; bottom: auto; left: 10%; }
@@ -821,30 +1082,45 @@
 			.location-section { grid-template-columns: 1fr; padding-block: 96px 110px; }
 			.location-copy { max-width: none; }
 			.location-map { height: 360px; }
-			.partner-section { grid-template-columns: 1fr; padding-block: 94px 110px; }
+			.partner-section { padding-block: 94px 110px; }
+			.partner-grid { grid-template-columns: 1fr; max-width: 620px; margin-top: 34px; }
+			.partner-visual img { height: clamp(240px, 64vw, 340px); }
 			.partner-copy { max-width: none; }
 			.partner-logos { flex-wrap: wrap; }
-			.story { grid-template-columns: 1fr; min-height: auto; padding-block: 110px; }
-			.story-mark { display: none; }
-			.contact { min-height: 88vh; min-height: 88svh; }
+			.contact { min-height: 88vh; min-height: 88svh; padding-bottom: 80px; }
+			.whatsapp-contact { margin-top: 26px; padding: 16px; }
+			.social-area { margin-top: 28px; padding-top: 20px; }
+			.social-links { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+			.social-link { min-height: 64px; font-size: .72rem; }
 			footer { text-align: center; }
+		}
+		@media (max-width: 760px) and (max-height: 500px) and (orientation: landscape) {
+			.hero { padding-block: 20px; }
+			.hero-phrases { gap: 0; }
+			.hero-phrase { font-size: clamp(1.3rem, 6vw, 2.2rem); line-height: 1.1; }
+			.scroll-cue { gap: 2px; margin-top: 4px; padding: 7px 12px; font-size: .8rem; }
+			.scroll-arrow { font-size: 1rem; }
+			.hero-content .eyebrow { margin-bottom: 8px; }
 		}
 		@media (prefers-reduced-motion: reduce) {
 			*, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 			.hero-phrase { transition: none; }
-			.coffee-decor__item { animation: none; }
+			.coffee-decor__item { animation: none; translate: 0 0; transition: none; }
+			.coffee-decor.is-visible .coffee-decor__item { opacity: var(--coffee-opacity, .16); }
 		}
 	</style>
 </head>
 <body>
 	<nav class="site-nav" id="mainnav" aria-label="Navigation principale">
 		<a class="brand" href="#accueil">Romio <span>Distribution</span></a>
+		<button class="nav-toggle" id="navToggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navLinks">
+			<span></span><span></span><span></span>
+		</button>
 		<ul class="nav-links" id="navLinks">
 			<li><a href="#accueil">Accueil</a></li>
 			<li><a href="#produits-romio">Nos Produits</a></li>
 			<li><a href="#partenaire">Notre Partenaire</a></li>
 			<li><a href="#localisation">Localisation</a></li>
-			<li><a href="#histoire">À propos</a></li>
 			<li><a href="#contact">Contact</a></li>
 		</ul>
 	</nav>
@@ -868,11 +1144,24 @@
 		</section>
 
 		<section class="product-section product-blue" id="produits-romio" aria-labelledby="blue-title">
-			<div class="coffee-decor" aria-hidden="true">
-				<span class="coffee-decor__item coffee-cup"></span>
-				<span class="coffee-decor__item coffee-steam"></span>
-				<span class="coffee-decor__item coffee-bean coffee-bean--one"></span>
-				<span class="coffee-decor__item coffee-bean coffee-bean--two"></span>
+			<div class="coffee-decor coffee-blue" aria-hidden="true">
+				<canvas class="coffee-webgl" aria-hidden="true"></canvas>
+				<span class="coffee-decor__item coffee-cup coffee-decor__item--mobile-hide coffee-decor__item--near coffee-decor__item--from-left"></span>
+				<span class="coffee-decor__item coffee-steam coffee-decor__item--mobile-hide coffee-decor__item--far coffee-decor__item--rise"></span>
+				<span class="coffee-decor__item coffee-bean coffee-bean--one coffee-decor__item--from-left"></span>
+				<span class="coffee-decor__item coffee-bean coffee-bean--two coffee-decor__item--far coffee-decor__item--from-right"></span>
+				<span class="coffee-decor__item coffee-bean coffee-bean--three coffee-decor__item--mobile-hide coffee-decor__item--far coffee-decor__item--from-left"></span>
+				<span class="coffee-decor__item coffee-bean coffee-bean--four coffee-decor__item--mobile-hide coffee-decor__item--near coffee-decor__item--from-right"></span>
+				<span class="coffee-decor__item coffee-bean coffee-bean--five coffee-decor__item--mobile-hide coffee-decor__item--rise"></span>
+				<span class="coffee-decor__item coffee-leaf coffee-leaf--one coffee-decor__item--mobile-hide coffee-decor__item--far coffee-decor__item--from-right"></span>
+				<span class="coffee-decor__item coffee-leaf coffee-leaf--two coffee-decor__item--mobile-hide coffee-decor__item--near coffee-decor__item--rise"></span>
+				<span class="coffee-decor__item coffee-grinder coffee-decor__item--mobile-hide coffee-decor__item--from-right"></span>
+				<span class="coffee-decor__item coffee-bag coffee-decor__item--mobile-hide coffee-decor__item--far coffee-decor__item--from-left"><i class="coffee-bag__fold"></i><i class="coffee-bag__label"></i></span>
+				<span class="coffee-decor__item coffee-capsule coffee-capsule--one coffee-decor__item--mobile-hide coffee-decor__item--from-right"></span>
+				<span class="coffee-decor__item coffee-capsule coffee-capsule--two coffee-decor__item--mobile-hide coffee-decor__item--far coffee-decor__item--rise"></span>
+				<span class="coffee-decor__item coffee-particle coffee-particle--one coffee-decor__item--far coffee-decor__item--rise"></span>
+				<span class="coffee-decor__item coffee-particle coffee-particle--two coffee-decor__item--rise"></span>
+				<span class="coffee-decor__item coffee-particle coffee-particle--three coffee-decor__item--mobile-hide coffee-decor__item--far"></span>
 			</div>
 			<div class="product-copy">
 				<span class="eyebrow">01 · La collection</span>
@@ -890,11 +1179,22 @@
 		</section>
 
 		<section class="product-section product-green" aria-labelledby="green-title">
-			<div class="coffee-decor" aria-hidden="true">
-				<span class="coffee-decor__item coffee-leaf coffee-leaf--one"></span>
-				<span class="coffee-decor__item coffee-leaf coffee-leaf--two"></span>
-				<span class="coffee-decor__item coffee-leaf coffee-leaf--three"></span>
-				<span class="coffee-decor__item coffee-spoon"></span>
+			<div class="coffee-decor coffee-green" aria-hidden="true">
+				<span class="coffee-decor__item coffee-leaf coffee-leaf--one coffee-decor__item--near coffee-decor__item--rise"></span>
+				<span class="coffee-decor__item coffee-leaf coffee-leaf--two coffee-decor__item--far coffee-decor__item--from-left"></span>
+				<span class="coffee-decor__item coffee-leaf coffee-leaf--three coffee-decor__item--mobile-hide coffee-decor__item--from-right"></span>
+				<span class="coffee-decor__item coffee-leaf coffee-leaf--four coffee-decor__item--mobile-hide coffee-decor__item--far coffee-decor__item--from-right"></span>
+				<span class="coffee-decor__item coffee-spoon coffee-decor__item--mobile-hide coffee-decor__item--near coffee-decor__item--rise"></span>
+				<span class="coffee-decor__item coffee-bean coffee-bean--one coffee-decor__item--from-left"></span>
+				<span class="coffee-decor__item coffee-bean coffee-bean--two coffee-decor__item--far coffee-decor__item--from-right"></span>
+				<span class="coffee-decor__item coffee-bean coffee-bean--three coffee-decor__item--mobile-hide coffee-decor__item--rise"></span>
+				<span class="coffee-decor__item coffee-grinder coffee-decor__item--mobile-hide coffee-decor__item--near coffee-decor__item--from-right"></span>
+				<span class="coffee-decor__item coffee-bag coffee-decor__item--mobile-hide coffee-decor__item--far coffee-decor__item--from-left"><i class="coffee-bag__fold"></i><i class="coffee-bag__label"></i></span>
+				<span class="coffee-decor__item coffee-capsule coffee-capsule--one coffee-decor__item--mobile-hide coffee-decor__item--rise"></span>
+				<span class="coffee-decor__item coffee-capsule coffee-capsule--two coffee-decor__item--mobile-hide coffee-decor__item--far coffee-decor__item--from-left"></span>
+				<span class="coffee-decor__item coffee-particle coffee-particle--one coffee-decor__item--rise"></span>
+				<span class="coffee-decor__item coffee-particle coffee-particle--two coffee-decor__item--far coffee-decor__item--from-left"></span>
+				<span class="coffee-decor__item coffee-particle coffee-particle--three coffee-decor__item--mobile-hide coffee-decor__item--far"></span>
 			</div>
 			<div class="product-copy">
 				<span class="eyebrow">02 · La collection</span>
@@ -912,11 +1212,20 @@
 		</section>
 
 		<section class="product-section product-yellow" aria-labelledby="yellow-title">
-			<div class="coffee-decor" aria-hidden="true">
-				<span class="coffee-decor__item coffee-maker"><i class="coffee-maker__knob"></i><i class="coffee-maker__handle"></i><i class="coffee-maker__spout"></i></span>
-				<span class="coffee-decor__item coffee-bean coffee-bean--one"></span>
-				<span class="coffee-decor__item coffee-bean coffee-bean--two"></span>
-				<span class="coffee-decor__item coffee-leaf coffee-leaf--one"></span>
+			<div class="coffee-decor coffee-yellow" aria-hidden="true">
+				<span class="coffee-decor__item coffee-maker coffee-decor__item--mobile-hide coffee-decor__item--near coffee-decor__item--from-left"><i class="coffee-maker__knob"></i><i class="coffee-maker__handle"></i><i class="coffee-maker__spout"></i></span>
+				<span class="coffee-decor__item coffee-bean coffee-bean--one coffee-decor__item--from-left"></span>
+				<span class="coffee-decor__item coffee-bean coffee-bean--two coffee-decor__item--far coffee-decor__item--from-right"></span>
+				<span class="coffee-decor__item coffee-bean coffee-bean--three coffee-decor__item--mobile-hide coffee-decor__item--near coffee-decor__item--rise"></span>
+				<span class="coffee-decor__item coffee-bean coffee-bean--four coffee-decor__item--mobile-hide coffee-decor__item--from-left"></span>
+				<span class="coffee-decor__item coffee-leaf coffee-leaf--one coffee-decor__item--rise"></span>
+				<span class="coffee-decor__item coffee-leaf coffee-leaf--two coffee-decor__item--mobile-hide coffee-decor__item--far coffee-decor__item--from-right"></span>
+				<span class="coffee-decor__item coffee-bag coffee-decor__item--mobile-hide coffee-decor__item--near coffee-decor__item--rise"><i class="coffee-bag__fold"></i><i class="coffee-bag__label"></i></span>
+				<span class="coffee-decor__item coffee-grinder coffee-decor__item--mobile-hide coffee-decor__item--far coffee-decor__item--from-right"><i class="coffee-grinder__crank"></i><i class="coffee-grinder__knob"></i></span>
+				<span class="coffee-decor__item coffee-capsule coffee-capsule--one coffee-decor__item--mobile-hide coffee-decor__item--rise"></span>
+				<span class="coffee-decor__item coffee-capsule coffee-capsule--two coffee-decor__item--mobile-hide coffee-decor__item--far coffee-decor__item--from-right"></span>
+				<span class="coffee-decor__item coffee-particle coffee-particle--one coffee-decor__item--rise"></span>
+				<span class="coffee-decor__item coffee-particle coffee-particle--two coffee-decor__item--far coffee-decor__item--from-left"></span>
 			</div>
 			<div class="product-copy">
 				<span class="eyebrow">03 · La collection</span>
@@ -962,47 +1271,100 @@
 		</section>
 
 		<section class="partner-section" id="partenaire" aria-labelledby="partenaire-title">
-			<div class="partner-visual">
-				<img src="imags/Huiles naturelles By Badila Healthy.png" alt="Produits naturels By Badila Healthy" loading="eager">
-			</div>
-			<div class="partner-copy">
-				<span class="eyebrow">Notre Partenaire</span>
+			<header class="partner-heading">
+				<span class="eyebrow">Nos marques partenaires</span>
 				<h2 id="partenaire-title">Notre Partenaire</h2>
-				<p class="partner-kicker">Une collaboration basée sur la qualité, le naturel et le savoir-faire.</p>
-				<p>Nous sommes fiers de collaborer avec By Badila Healthy afin de proposer une sélection de produits naturels soigneusement sélectionnés pour leur qualité et leur authenticité. Découvrez notre gamme et apprenez-en davantage sur chaque produit.</p>
-				<div class="partner-logos" aria-label="Marques partenaires">
-					<div class="partner-logo">Romio Distribution</div>
-					<div class="partner-mark" aria-hidden="true">×</div>
-					<div class="partner-logo">By Badila Healthy</div>
-				</div>
-				<a class="partner-cta" href="produits-by-badila.html">Découvrir les produits</a>
-			</div>
-		</section>
-
-		<section class="story" id="histoire" aria-labelledby="story-title">
-			<div class="story-mark" aria-hidden="true">R.</div>
-			<div class="story-copy">
-				<span class="eyebrow">Notre histoire</span>
-				<h2 id="story-title">Du grain à la tasse, avec attention.</h2>
-				<p>Romio Distribution est né d'une conviction simple : un bon café commence par le respect du grain, de sa sélection à sa torréfaction.</p>
-				<p>Aujourd'hui, nous accompagnons particuliers et professionnels avec une gamme de cafés en grains, du matériel de préparation et un service pensé pour durer.</p>
+			</header>
+			<div class="partner-grid">
+				<article class="partner-card" aria-labelledby="badila-partner-title">
+					<div class="partner-visual">
+						<img src="imags/Huiles naturelles By Badila Healthy.png" alt="Produits naturels By Badila Healthy" loading="eager">
+					</div>
+					<div class="partner-copy">
+						<span class="eyebrow">Notre Partenaire</span>
+						<h2 id="badila-partner-title">By Badila Healthy</h2>
+						<p class="partner-kicker">Une collaboration basée sur la qualité, le naturel et le savoir-faire.</p>
+						<p>Nous sommes fiers de collaborer avec By Badila Healthy afin de proposer une sélection de produits naturels soigneusement sélectionnés pour leur qualité et leur authenticité. Découvrez notre gamme et apprenez-en davantage sur chaque produit.</p>
+						<div class="partner-logos" aria-label="Marques partenaires">
+							<div class="partner-logo">Romio Distribution</div>
+							<div class="partner-mark" aria-hidden="true">×</div>
+							<div class="partner-logo">By Badila Healthy</div>
+						</div>
+						<a class="partner-cta" href="produits-by-badila.html">Découvrir les produits</a>
+					</div>
+				</article>
+				<article class="partner-card partner-card--davinci" aria-labelledby="davinci-partner-title">
+					<div class="partner-visual">
+						<img src="imags/Gamme DaVinci Gourmet, saveurs inspirantes.png" alt="La gamme de sirops DaVinci Gourmet et ses huit saveurs" loading="lazy">
+					</div>
+					<div class="partner-copy">
+						<span class="eyebrow">Notre Partenaire</span>
+						<h2 id="davinci-partner-title">DaVinci Gourmet</h2>
+						<p class="partner-kicker">Des saveurs qui inspirent les créations professionnelles.</p>
+						<p>DaVinci Gourmet propose une gamme de sirops et de solutions aromatiques destinées aux professionnels du café, de la restauration et de la création de boissons.</p>
+						<div class="partner-logos" aria-label="Marques partenaires">
+							<div class="partner-logo">Romio Distribution</div>
+							<div class="partner-mark" aria-hidden="true">×</div>
+							<div class="partner-logo">DaVinci Gourmet</div>
+						</div>
+						<a class="partner-cta" href="produits-davinci.html">Découvrir les produits</a>
+					</div>
+				</article>
 			</div>
 		</section>
 
 		<section class="contact" id="contact" aria-labelledby="contact-title">
 			<div class="contact-content">
-				<span class="eyebrow">Contact</span>
+				<span class="eyebrow">Contactez-nous</span>
 				<h2 id="contact-title">Parlons de votre prochaine commande.</h2>
-				<p>Une question, un devis, une commande professionnelle : notre équipe vous répond rapidement.</p>
+				<p>Une question, une demande ou besoin de plus d’informations ? Notre équipe est à votre disposition.</p>
 				<div class="contact-actions">
 					<a class="primary" href="mailto:contact@romio-distribution.com">Nous écrire</a>
-					<a href="tel:+212000000000">Nous appeler</a>
+					<a href="tel:+212640146174">Nous appeler</a>
+				</div>
+				<a class="whatsapp-contact" href="https://wa.me/212640146174?text=Bonjour%20Romio%20Distribution%2C%20je%20souhaite%20avoir%20plus%20d%27informations%20sur%20vos%20produits." target="_blank" rel="noopener noreferrer" aria-label="Nous contacter sur WhatsApp Business au +212 640 146 174">
+					<svg class="whatsapp-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+						<path d="M20.1 11.7a8.1 8.1 0 0 1-12 7.1L3 20l1.3-4.9a8.1 8.1 0 1 1 15.8-3.4Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M8.4 7.8c.2-.4.4-.4.7-.4h.5c.2 0 .4.1.5.4l.8 1.8c.1.2.1.4 0 .6l-.6.7c-.2.2-.2.4-.1.6.5.9 1.3 1.7 2.2 2.2.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.7.8c.3.1.4.3.4.5 0 .7-.3 1.4-.8 1.8-.5.4-1.1.6-1.8.5-1.1-.2-2.5-.9-3.8-2.1-1.5-1.3-2.5-2.9-2.8-4.1-.2-.9.1-1.7.6-2.3.2-.2.5-.4.6-.4Z" fill="currentColor"/>
+					</svg>
+					<span class="whatsapp-heading">WhatsApp Business</span>
+					<span class="whatsapp-details"><span class="whatsapp-number">+212 640 146 174</span><span>Nous contacter sur WhatsApp</span></span>
+				</a>
+				<div class="social-area" aria-labelledby="social-title">
+					<h3 class="social-heading" id="social-title">Suivez-nous</h3>
+					<nav class="social-links" aria-label="Réseaux sociaux Romio Distribution">
+						<a class="social-link" href="https://www.facebook.com/profile.php?id=61594782299125" target="_blank" rel="noopener noreferrer" aria-label="Visiter Romio Distribution sur Facebook">
+							<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.5 21v-7.4H16l.4-3h-2.9V8.7c0-.9.3-1.5 1.6-1.5h1.5V4.5c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v1.9H7.3v3h2.6V21h3.6Z"/></svg>
+							<span>Facebook</span>
+						</a>
+						<a class="social-link" href="https://www.tiktok.com/@romiodistribution?is_from_webapp=1&amp;sender_device=pc" target="_blank" rel="noopener noreferrer" aria-label="Visiter Romio Distribution sur TikTok">
+							<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M19.7 7.5a5.8 5.8 0 0 1-3.6-1.3v8.1a5.6 5.6 0 1 1-5.6-5.6c.4 0 .8 0 1.2.1v3.1a2.7 2.7 0 1 0 1.8 2.5V3.5h3.1c.2 2 1.4 3.7 3.1 4.5v3.2Z"/></svg>
+							<span>TikTok</span>
+						</a>
+						<a class="social-link" href="https://www.instagram.com/distribution__romio/" target="_blank" rel="noopener noreferrer" aria-label="Visiter Romio Distribution sur Instagram">
+							<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.6" r="1.1" fill="currentColor"/></svg>
+							<span>Instagram</span>
+						</a>
+						<a class="social-link" href="https://x.com/RomioDis" target="_blank" rel="noopener noreferrer" aria-label="Visiter Romio Distribution sur X">
+							<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.9 2h3.1l-6.8 7.8L23.2 22H17l-4.9-7.4L5.6 22H2.4l7.3-8.4L1.8 2h6.4l4.4 6.8L18.9 2Zm-1.1 18h1.7L7.3 3.9H5.5L17.8 20Z"/></svg>
+							<span>X</span>
+						</a>
+						<a class="social-link" href="https://www.youtube.com/@RomioDistribution" target="_blank" rel="noopener noreferrer" aria-label="Visiter Romio Distribution sur YouTube">
+							<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8Z"/><path fill="var(--forest-light)" d="m9.6 15.5 6.2-3.5-6.2-3.5v7Z"/></svg>
+							<span>YouTube</span>
+						</a>
+						<a class="social-link" href="https://www.linkedin.com/in/romio-distribution-6a636643a" target="_blank" rel="noopener noreferrer" aria-label="Visiter Romio Distribution sur LinkedIn">
+							<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M5.2 3a2.2 2.2 0 1 1 0 4.4 2.2 2.2 0 0 1 0-4.4ZM3.3 9h3.8v12H3.3V9Zm6.2 0h3.6v1.6h.1A4 4 0 0 1 16.8 8c3.9 0 4.6 2.5 4.6 5.8V21h-3.8v-6.4c0-1.5 0-3.4-2.1-3.4s-2.4 1.6-2.4 3.3V21H9.5V9Z"/></svg>
+							<span>LinkedIn</span>
+						</a>
+					</nav>
 				</div>
 			</div>
 			<footer>© 2026 Romio Distribution · Tous droits réservés</footer>
 		</section>
 	</main>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 	<script>
@@ -1037,8 +1399,57 @@
 			}, { threshold: 0.01 });
 			heroObserver.observe(hero);
 
+			const activeProductSections = new Set();
+			const productDecorItems = new Map();
+			let productParallaxFrame = 0;
+			const updateProductParallax = () => {
+				productParallaxFrame = 0;
+				const viewportHeight = Math.max(window.innerHeight, 1);
+				activeProductSections.forEach(section => {
+					const sectionRect = section.getBoundingClientRect();
+					const centerOffset = (sectionRect.top + sectionRect.height / 2 - viewportHeight / 2) / viewportHeight;
+					(productDecorItems.get(section) || []).forEach(item => {
+						const depth = Number(item.dataset.scrollDepth) || .5;
+						const offset = Math.max(-32, Math.min(32, -centerOffset * depth * 46));
+						item.style.setProperty('--parallax-y', `${offset.toFixed(1)}px`);
+					});
+				});
+			};
+			const scheduleProductParallax = () => {
+				if (reducedMotion || !activeProductSections.size || productParallaxFrame) return;
+				productParallaxFrame = window.requestAnimationFrame(updateProductParallax);
+			};
+			const productSections = [...document.querySelectorAll('.product-section')];
+			productSections.forEach(section => {
+				const decor = section.querySelector('.coffee-decor');
+				const items = decor ? [...decor.querySelectorAll('.coffee-decor__item')] : [];
+				items.forEach((item, index) => {
+					const depth = item.classList.contains('coffee-decor__item--far') ? .28
+						: item.classList.contains('coffee-decor__item--near') ? .92
+							: .38 + (index % 4) * .14;
+					item.dataset.scrollDepth = String(depth);
+				});
+				productDecorItems.set(section, items);
+			});
+			if (!reducedMotion) {
+				window.addEventListener('scroll', scheduleProductParallax, { passive: true });
+				window.addEventListener('resize', scheduleProductParallax, { passive: true });
+			}
+
 			const productObserver = new IntersectionObserver(entries => {
 				entries.forEach(entry => {
+					const decor = entry.target.querySelector('.coffee-decor');
+					const decorItems = productDecorItems.get(entry.target) || [];
+					if (entry.isIntersecting) {
+						if (decor) decor.classList.add('is-visible');
+						activeProductSections.add(entry.target);
+						scheduleProductParallax();
+					} else if (entry.intersectionRatio === 0) {
+						if (decor) decor.classList.remove('is-visible');
+						activeProductSections.delete(entry.target);
+						decorItems.forEach(item => item.style.setProperty('--parallax-y', '0px'));
+					}
+
 					const video = entry.target.querySelector('.product-video');
 					const preferredVideo = video.dataset.video;
 					const fallbackVideo = video.dataset.fallback;
@@ -1061,19 +1472,27 @@
 					}
 				});
 			}, { rootMargin: '180px 0px', threshold: 0.15 });
-			document.querySelectorAll('.product-section').forEach(section => productObserver.observe(section));
+			productSections.forEach(section => productObserver.observe(section));
 
 			if (navToggle && navLinks) {
-				navToggle.addEventListener('click', () => {
-					const isOpen = navLinks.classList.toggle('open');
+				const setNavOpen = (isOpen, restoreFocus = false) => {
+					navLinks.classList.toggle('open', isOpen);
 					navToggle.setAttribute('aria-expanded', String(isOpen));
 					navToggle.setAttribute('aria-label', isOpen ? 'Fermer le menu' : 'Ouvrir le menu');
+					document.body.classList.toggle('menu-open', isOpen);
+					if (restoreFocus) navToggle.focus();
+				};
+				navToggle.addEventListener('click', () => {
+					setNavOpen(navToggle.getAttribute('aria-expanded') !== 'true');
 				});
-				navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
-					navLinks.classList.remove('open');
-					navToggle.setAttribute('aria-expanded', 'false');
-					navToggle.setAttribute('aria-label', 'Ouvrir le menu');
-				}));
+				navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setNavOpen(false)));
+				nav.querySelector('.brand').addEventListener('click', () => setNavOpen(false));
+				document.addEventListener('keydown', event => {
+					if (event.key === 'Escape' && navToggle.getAttribute('aria-expanded') === 'true') setNavOpen(false, true);
+				});
+				window.addEventListener('resize', () => {
+					if (window.innerWidth > 760) setNavOpen(false);
+				});
 			}
 
 			if (!reducedMotion && window.gsap && window.ScrollTrigger) {

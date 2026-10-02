@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#21160f">
+  <title>DaVinci Gourmet | Romio Distribution</title>
+  <meta name="description" content="Découvrez la sélection DaVinci Gourmet proposée par Romio Distribution.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=DM+Sans:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #21160f;
+      --espresso: #302117;
+      --paper: #f5efe5;
+      --cream: #fffaf1;
+      --gold: #c99d55;
+      --muted: #6c6257;
+      --line: rgba(33, 22, 15, .13);
+      --page-gutter: clamp(22px, 6vw, 88px);
+      font-family: 'DM Sans', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 82px; }
+    body { min-width: 320px; overflow-x: hidden; }
+    a { color: inherit; }
+    h1, h2, h3 { font-family: 'Fraunces', serif; font-weight: 400; }
+
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 78px;
+      gap: 22px;
+      padding: 14px var(--page-gutter);
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      background: rgba(26, 19, 14, .94);
+      color: var(--cream);
+      backdrop-filter: blur(12px);
+    }
+    .brand { font-family: 'Fraunces', serif; font-size: 1.25rem; text-decoration: none; white-space: nowrap; }
+    .brand span { color: var(--gold); }
+    .nav-links { display: flex; align-items: center; gap: clamp(18px, 3vw, 38px); list-style: none; padding: 0; }
+    .nav-links a { color: rgba(255,250,241,.82); font-size: .86rem; text-decoration: none; transition: color 180ms ease; }
+    .nav-links a:hover, .nav-links a:focus-visible { color: #e4bd7b; }
+
+    .hero {
+      position: relative;
+      display: grid;
+      --hero-nav-height: 78px;
+      min-height: calc(100vh - var(--hero-nav-height));
+      min-height: calc(100svh - var(--hero-nav-height));
+      min-height: calc(100dvh - var(--hero-nav-height));
+      place-items: center;
+      overflow: hidden;
+      padding: 96px var(--page-gutter);
+      isolation: isolate;
+      background: var(--espresso);
+      color: var(--cream);
+      text-align: center;
+    }
+    .hero-media, .hero-shade { position: absolute; z-index: -1; inset: 0; }
+    .hero-media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .hero-shade { background: linear-gradient(90deg, rgba(20,14,10,.66), rgba(20,14,10,.2) 48%, rgba(20,14,10,.58)), linear-gradient(0deg, rgba(20,14,10,.48), transparent 58%); }
+    .hero-copy { width: min(900px, 100%); animation: reveal .8s ease both; }
+    .eyebrow { display: inline-flex; align-items: center; justify-content: center; gap: 12px; color: #e5bd79; font-size: .75rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; }
+    .eyebrow::before, .eyebrow::after { width: 30px; height: 1px; background: currentColor; content: ''; }
+    .hero h1 { margin-top: 22px; font-size: clamp(3.2rem, 8vw, 7.4rem); line-height: .98; text-wrap: balance; text-shadow: 0 4px 24px rgba(0,0,0,.34); }
+    .hero-copy > p { margin-top: 20px; color: rgba(255,250,241,.9); font-family: 'Cinzel', serif; font-size: clamp(1.15rem, 2.2vw, 1.7rem); }
+    .hero-action, .return-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      margin-top: 34px;
+      padding: 14px 24px;
+      border: 1px solid #d6ad69;
+      border-radius: 2px;
+      background: #c99d55;
+      color: #20150e;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: transform 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+    }
+    .hero-action:hover, .hero-action:focus-visible, .return-action:hover, .return-action:focus-visible { transform: translateY(-2px); background: #dfb875; box-shadow: 0 12px 28px rgba(37,22,11,.18); }
+
+    .intro { padding: clamp(74px, 10vw, 124px) var(--page-gutter); background: var(--cream); text-align: center; }
+    .intro-inner { width: min(820px, 100%); margin-inline: auto; }
+    .intro .eyebrow { color: #906d38; }
+    .intro h2 { margin-top: 18px; font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.05; }
+    .intro p { margin: 22px auto 0; color: var(--muted); font-size: clamp(1rem, 1.5vw, 1.12rem); line-height: 1.8; }
+
+    .range { padding: clamp(72px, 9vw, 112px) var(--page-gutter) 96px; background: linear-gradient(180deg, #efe5d7, #f5efe5 44%); }
+    .range-head { width: min(800px, 100%); margin: 0 auto 46px; text-align: center; }
+    .range-head .eyebrow { color: #906d38; }
+    .range-head h2 { margin-top: 16px; font-size: clamp(2.2rem, 4.6vw, 3.8rem); line-height: 1.08; text-wrap: balance; }
+    .product-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(14px, 2vw, 26px); max-width: 1480px; margin-inline: auto; }
+    .product-card {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255,250,241,.9);
+      box-shadow: 0 16px 38px rgba(43,29,17,.07);
+      animation: reveal .65s ease both;
+      transition: transform 200ms ease, box-shadow 200ms ease;
+    }
+    .product-card:hover { transform: translateY(-5px); box-shadow: 0 24px 48px rgba(43,29,17,.13); }
+    .product-card:nth-child(2) { animation-delay: 70ms; }
+    .product-card:nth-child(3) { animation-delay: 140ms; }
+    .product-card:nth-child(4) { animation-delay: 210ms; }
+    .product-card:nth-child(5) { animation-delay: 280ms; }
+    .product-card:nth-child(6) { animation-delay: 350ms; }
+    .product-card:nth-child(7) { animation-delay: 420ms; }
+    .product-card:nth-child(8) { animation-delay: 490ms; }
+    .product-image { display: grid; place-items: center; height: clamp(220px, 23vw, 300px); padding: 16px; overflow: hidden; border-bottom: 1px solid var(--line); background: linear-gradient(145deg, #eee0ce, #f8f1e5 58%, #ead9c2); }
+    .product-image img { display: block; width: 100%; height: 100%; object-fit: contain; transition: transform 300ms ease; }
+    .product-card:hover .product-image img { transform: scale(1.035); }
+    .product-copy { display: flex; flex: 1; flex-direction: column; gap: 12px; padding: 20px 20px 24px; }
+    .product-copy h3 { font-size: clamp(1.18rem, 1.6vw, 1.52rem); line-height: 1.18; }
+    .product-copy p { color: var(--muted); font-size: .91rem; line-height: 1.65; }
+    .product-index { color: #9a7541; font-size: .67rem; font-weight: 700; letter-spacing: .15em; }
+
+    .return { padding: 0 var(--page-gutter) 104px; background: #f5efe5; text-align: center; }
+    .return p { color: var(--muted); font-size: .96rem; }
+    .return-action { margin-top: 20px; background: var(--espresso); border-color: var(--espresso); color: var(--cream); }
+    .return-action:hover, .return-action:focus-visible { background: #4a3422; }
+    .site-footer { padding: 26px var(--page-gutter); border-top: 1px solid rgba(255,250,241,.1); background: #21160f; color: rgba(255,250,241,.62); font-size: .78rem; text-align: center; }
+
+    @keyframes reveal { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 1020px) { .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 700px) {
+      .site-nav { flex-direction: column; justify-content: center; gap: 12px; padding-block: 14px; }
+      .nav-links { flex-wrap: wrap; justify-content: center; gap: 12px 22px; }
+      .nav-links a { font-size: .78rem; }
+      .hero {
+        --hero-nav-height: calc(77px + env(safe-area-inset-top, 0px));
+        min-height: calc(100vh - var(--hero-nav-height));
+        min-height: calc(100svh - var(--hero-nav-height));
+        min-height: calc(100dvh - var(--hero-nav-height));
+        padding: 72px var(--page-gutter);
+      }
+      .hero h1 { font-size: clamp(2.8rem, 12vw, 4.5rem); }
+      .product-grid { gap: 14px; }
+      .product-image { height: clamp(190px, 56vw, 250px); padding: 10px; }
+      .product-copy { gap: 9px; padding: 16px 14px 19px; }
+      .product-copy h3 { font-size: clamp(1.05rem, 4.5vw, 1.3rem); }
+      .product-copy p { font-size: .83rem; }
+      .return { padding-bottom: 76px; }
+    }
+    @media (max-width: 380px) { .product-grid { grid-template-columns: 1fr; } .product-image { height: 290px; } }
+    @media (max-width: 900px) and (max-height: 500px) and (orientation: landscape) {
+      .hero { padding-block: 20px; }
+      .hero h1 { font-size: clamp(2.2rem, 8vw, 4rem); }
+      .hero-copy > p { margin-top: 12px; }
+      .hero-action { margin-top: 16px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
+  </style>
+  <link rel="stylesheet" href="site-nav.css">
+</head>
+<body>
+    <nav class="site-nav" aria-label="Navigation DaVinci Gourmet" style="--mobile-nav-background: var(--espresso); --mobile-menu-background: var(--espresso); --mobile-nav-color: var(--cream);">
+    <a class="brand" href="index.html#accueil">Romio <span>Distribution</span></a>
+    <button class="nav-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#accueil">Accueil</a></li>
+      <li><a href="#gamme">Nos Produits</a></li>
+      <li><a href="index.html#partenaire">Notre Partenaire</a></li>
+      <li><a href="index.html#localisation">Localisation</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="hero" aria-labelledby="davinci-title">
+      <div class="hero-media" aria-hidden="true"><img src="imags/Gamme DaVinci Gourmet, saveurs inspirantes.png" alt=""></div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <span class="eyebrow">Romio Distribution présente</span>
+        <h1 id="davinci-title">DaVinci Gourmet</h1>
+        <p>Des saveurs qui inspirent.</p>
+        <a class="hero-action" href="#gamme">Découvrir la gamme</a>
+      </div>
+    </section>
+
+    <section class="intro" aria-labelledby="intro-title">
+      <div class="intro-inner">
+        <span class="eyebrow">Notre partenaire</span>
+        <h2 id="intro-title">DaVinci Gourmet</h2>
+        <p>Une gamme de saveurs pensée pour accompagner les professionnels dans la création de boissons uniques et gourmandes.</p>
+      </div>
+    </section>
+
+    <section class="range" id="gamme" aria-labelledby="range-title">
+      <header class="range-head">
+        <span class="eyebrow">La sélection Romio</span>
+        <h2 id="range-title">Découvrez notre sélection DaVinci Gourmet</h2>
+      </header>
+      <div class="product-grid">
+        <article class="product-card">
+          <div class="product-image"><img src="imags/davinci-tropical-passion-fruit.png" alt="Bouteille DaVinci Gourmet Tropical Passion Fruit" loading="lazy"></div>
+          <div class="product-copy"><span class="product-index">01 / 08</span><h3>Tropical Passion Fruit</h3><p>Une note fruitée et ensoleillée pour des créations pleines d’éclat.</p></div>
+        </article>
+        <article class="product-card">
+          <div class="product-image"><img src="imags/davinci-pecan-praline.png" alt="Bouteille DaVinci Gourmet Pecan Praline" loading="lazy"></div>
+          <div class="product-copy"><span class="product-index">02 / 08</span><h3>Pecan Praline</h3><p>Une saveur généreuse aux accents de noix de pécan.</p></div>
+        </article>
+        <article class="product-card">
+          <div class="product-image"><img src="imags/davinci-europeen-fruits-des-bois.png" alt="Bouteille DaVinci Gourmet Européen Fruits des Bois" loading="lazy"></div>
+          <div class="product-copy"><span class="product-index">03 / 08</span><h3>Européen Fruits des Bois</h3><p>Un assemblage fruité inspiré des fruits des bois.</p></div>
+        </article>
+        <article class="product-card">
+          <div class="product-image"><img src="imags/davinci-menta-cubano.png" alt="Bouteille DaVinci Gourmet Menta Cubano" loading="lazy"></div>
+          <div class="product-copy"><span class="product-index">04 / 08</span><h3>Menta Cubano</h3><p>Une note mentholée pour des boissons fraîches et expressives.</p></div>
+        </article>
+        <article class="product-card">
+          <div class="product-image"><img src="imags/davinci-majestic-mango.png" alt="Bouteille DaVinci Gourmet Majestic Mango" loading="lazy"></div>
+          <div class="product-copy"><span class="product-index">05 / 08</span><h3>Majestic Mango</h3><p>La mangue apporte une touche fruitée et tropicale.</p></div>
+        </article>
+        <article class="product-card">
+          <div class="product-image"><img src="imags/davinci-classic-hazelnut.png" alt="Bouteille DaVinci Gourmet Classic Hazelnut" loading="lazy"></div>
+          <div class="product-copy"><span class="product-index">06 / 08</span><h3>Classic Hazelnut</h3><p>Une saveur gourmande autour de la noisette.</p></div>
+        </article>
+        <article class="product-card">
+          <div class="product-image"><img src="imags/davinci-blue-ocean.png" alt="Bouteille DaVinci Gourmet Blue Ocean" loading="lazy"></div>
+          <div class="product-copy"><span class="product-index">07 / 08</span><h3>Blue Ocean</h3><p>Une saveur distinctive pour des créations visuelles.</p></div>
+        </article>
+        <article class="product-card">
+          <div class="product-image"><img src="imags/davinci-classic-caramel.png" alt="Bouteille DaVinci Gourmet Classic Caramel" loading="lazy"></div>
+          <div class="product-copy"><span class="product-index">08 / 08</span><h3>Classic Caramel</h3><p>Une note douce et caramélisée pour des créations gourmandes.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="return" aria-label="Retour à la sélection des partenaires">
+      <p>Découvrez l’ensemble des marques partenaires de Romio Distribution.</p>
+      <a class="return-action" href="index.html#partenaire">Retour aux partenaires</a>
+    </section>
+  </main>
+  <footer class="site-footer">© 2026 Romio Distribution · Tous droits réservés</footer>
+  <script src="site-nav.js" defer></script>
+</body>
+</html>
