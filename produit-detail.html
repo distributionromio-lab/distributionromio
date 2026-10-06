@@ -257,7 +257,7 @@
         </div>
 
         <div class="detail-actions">
-          <a class="primary-btn" href="mailto:contact@romio-distribution.com">Demander des informations</a>
+          <a class="primary-btn" id="productInquiry" href="https://wa.me/212640146174">Demander des informations</a>
         </div>
       </div>
     </section>
@@ -318,6 +318,7 @@
     const current = productData[selected] || productData.cade;
 
     document.getElementById('productName').textContent = current.name;
+    document.getElementById('productInquiry').href = `https://wa.me/212640146174?text=${encodeURIComponent(`Bonjour, je souhaite avoir plus d’informations sur le produit ${current.name}.`)}`;
     document.getElementById('productDescription').textContent = current.description;
     document.getElementById('productIntro').textContent = current.intro;
     document.getElementById('productInfo').textContent = current.info;

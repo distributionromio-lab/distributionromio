@@ -1058,10 +1058,14 @@
 			body.menu-open { overflow: hidden; }
 			.nav-links a { display: flex; min-height: 48px; align-items: center; font-family: 'Fraunces', serif; font-size: 1.65rem; }
 			.nav-actions { padding-left: 0; }
-			.hero { --hero-nav-height: 77px; padding: 0 var(--page-gutter); }
+			.hero {
+				--hero-nav-height: 77px;
+				height: min(56.25vw, calc(100svh - var(--hero-nav-height) - env(safe-area-inset-top, 0px)));
+				padding: 0 var(--page-gutter);
+			}
 			.hero h1 { font-size: clamp(3rem, 13vw, 5.2rem); }
 			.hero-phrase { font-size: clamp(1.9rem, 8.2vw, 3.4rem); }
-			.product-section { grid-template-columns: 1fr; gap: 18px; min-height: auto; padding-block: 106px 76px; }
+			.product-section { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(10px, 2.5vw, 22px); min-height: auto; padding-block: 106px 76px; }
 			.coffee-decor.is-visible .coffee-decor__item { --coffee-opacity: .15; animation-duration: 32s; }
 			.coffee-decor__item--mobile-hide { display: none; }
 			.coffee-decor__item--far { --coffee-opacity: .08; filter: blur(.4px); }
@@ -1073,10 +1077,16 @@
 			.product-green .coffee-leaf--two { top: 5%; bottom: auto; left: 6%; }
 			.product-green .coffee-leaf--three { top: 2%; bottom: auto; left: 10%; }
 			.product-yellow .coffee-leaf--one { top: 4%; bottom: auto; left: 2%; }
-			.product-copy { max-width: 620px; }
-			.product-copy h2 { font-size: clamp(3.2rem, 14vw, 5.2rem); }
-			.product-cta { width: fit-content; }
-			.product-stage { width: min(100%, 580px); height: min(98vw, 560px); min-height: 320px; margin-inline: auto; }
+			.product-copy { min-width: 0; max-width: none; }
+			.product-copy .eyebrow { margin-bottom: 12px; font-size: .66rem; }
+			.product-badge { margin-bottom: 10px; font-size: .68rem; }
+			.product-copy h2 { font-size: clamp(1.5rem, 5.5vw, 3.1rem); }
+			.product-description { margin-top: 12px; font-size: clamp(.84rem, 2vw, 1rem); line-height: 1.5; }
+			.product-benefits { gap: 8px; margin-top: 16px; }
+			.product-benefits li { gap: 8px; font-size: .78rem; }
+			.product-cta { width: fit-content; min-height: 40px; gap: 8px; margin-top: 18px; padding: 8px 10px; font-size: .78rem; }
+			.product-cta span { width: 22px; height: 22px; }
+			.product-stage { width: 100%; height: auto; aspect-ratio: 1; min-height: 0; margin: 0; padding: 8px; }
 			.stage-label { top: 4%; right: 2%; }
 			.stage-caption { right: 2%; bottom: 1%; }
 			.location-section { grid-template-columns: 1fr; padding-block: 96px 110px; }
@@ -1319,7 +1329,7 @@
 				<h2 id="contact-title">Parlons de votre prochaine commande.</h2>
 				<p>Une question, une demande ou besoin de plus d’informations ? Notre équipe est à votre disposition.</p>
 				<div class="contact-actions">
-					<a class="primary" href="mailto:contact@romio-distribution.com">Nous écrire</a>
+					<a class="primary" href="mailto:distributionromio@gmail.com">Nous écrire</a>
 					<a href="tel:+212640146174">Nous appeler</a>
 				</div>
 				<a class="whatsapp-contact" href="https://wa.me/212640146174?text=Bonjour%20Romio%20Distribution%2C%20je%20souhaite%20avoir%20plus%20d%27informations%20sur%20vos%20produits." target="_blank" rel="noopener noreferrer" aria-label="Nous contacter sur WhatsApp Business au +212 640 146 174">
